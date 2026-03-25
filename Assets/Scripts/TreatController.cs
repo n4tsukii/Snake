@@ -3,8 +3,8 @@ using UnityEngine;
 public class TreatController : MonoBehaviour
 {
     private float floorY = 1f;
-    private float spawnRangeX = 18f;
-    private float spawnRangeZ = 18f;
+    private float spawnRangeX = 10f;
+    private float spawnRangeZ = 10f;
 
     void Start()
     {
