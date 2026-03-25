@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class SnakeController : MonoBehaviour
 {
@@ -12,10 +13,7 @@ public class SnakeController : MonoBehaviour
 
     void Start()
     {
-        GrowSnake();
-        GrowSnake();
-        GrowSnake();
-        GrowSnake();
+        
     }
 
     void Update() {
@@ -43,6 +41,13 @@ public class SnakeController : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Treat")) {
+            GrowSnake();
+        }
+    }
+
     void MoveSnake() 
     {
         transform.position += moveSpeed * Time.deltaTime * transform.forward;
@@ -53,7 +58,6 @@ public class SnakeController : MonoBehaviour
 
     private void GrowSnake()
     {
-        // Instantiate freely, then parent to Snake root (Head's parent)
         GameObject tail = Instantiate(Tail, transform.position, transform.rotation);
         tail.transform.SetParent(transform.parent, worldPositionStays: true);
         TailParts.Add(tail);
