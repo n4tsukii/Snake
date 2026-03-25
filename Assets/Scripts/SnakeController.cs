@@ -28,7 +28,7 @@ public class SnakeController : MonoBehaviour
 
         if (PositionHistory.Count < Gap) return;
 
-        int index = 0;
+        int index = 1;
         foreach (var body in TailParts) {
             Vector3 point = PositionHistory[Mathf.Clamp(index * Gap, 0, PositionHistory.Count - 1)];
 
