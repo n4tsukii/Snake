@@ -1,45 +1,66 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
-public class TailController : MonoBehaviour
+public class TailController : MonoBehaviour, IPooledObject
 {
-    [SerializeField] float moveSpeed = 5;
-    [SerializeField] GameObject head;
-    [SerializeField] int Gap = 50;
-    public List<GameObject> TailParts = new List<GameObject>();
-    private List<Vector3> PositionHistory = new List<Vector3>();
-    void Start()
+    [SerializeField] float moveSpeed = 5f;
+    [SerializeField] int gap = 100;
+
+    private readonly List<Vector3> positionHistory = new List<Vector3>();
+    private Transform followTarget;
+    private bool isFollowing;
+
+    public void OnObjectSpawn()
     {
-        
+        positionHistory.Clear();
+        isFollowing = false;
+    }
+
+    public void Initialize(Transform targetToFollow, float followSpeed, int followGap)
+    {
+        followTarget = targetToFollow;
+        moveSpeed = followSpeed;
+        gap = followGap;
+        positionHistory.Clear();
+
+        if (followTarget != null)
+        {
+            for (int i = 0; i <= gap; i++)
+            {
+                positionHistory.Add(followTarget.position);
+            }
+        }
+
+        isFollowing = followTarget != null;
     }
 
     void Update()
     {
-        Move();
+        MoveTail();
     }
 
-    void Move()
+    void MoveTail()
     {
-        PositionHistory.Insert(0, transform.position);
+        if (!isFollowing || followTarget == null) return;
 
-        // Trim history to avoid memory leak
-        int maxHistory = (TailParts.Count + 1) * Gap;
-        if (PositionHistory.Count > maxHistory)
-            PositionHistory.RemoveAt(PositionHistory.Count - 1);
+        positionHistory.Insert(0, followTarget.position);
 
-        if (PositionHistory.Count < Gap) return;
+        int maxHistory = Mathf.Max(gap + 1, 256);
+        if (positionHistory.Count > maxHistory)
+        {
+            positionHistory.RemoveRange(maxHistory, positionHistory.Count - maxHistory);
+        }
 
-        int index = 1;
-        foreach (var body in TailParts) {
-            Vector3 point = PositionHistory[Mathf.Clamp(index * Gap, 0, PositionHistory.Count - 1)];
+        int historyIndex = Mathf.Min(gap, positionHistory.Count - 1);
+        if (historyIndex < 0) return;
 
-            Vector3 moveDirection = point - body.transform.position;
-            body.transform.position += moveDirection * moveSpeed * Time.deltaTime;
+        Vector3 targetPosition = positionHistory[historyIndex];
+        transform.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
-            body.transform.LookAt(point);
-
-            index++;
+        Vector3 lookDirection = followTarget.position - transform.position;
+        if (lookDirection.sqrMagnitude > 0.0001f)
+        {
+            transform.rotation = Quaternion.LookRotation(lookDirection);
         }
     }
 }

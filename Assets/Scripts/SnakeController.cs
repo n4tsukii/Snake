@@ -1,49 +1,46 @@
 using UnityEngine;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 
 public class SnakeController : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 5;
-    [SerializeField] float steerSpeed = 180;
-    [SerializeField] GameObject Tail;
+    [SerializeField] float moveSpeed = 5f;
+    [SerializeField] float steerSpeed = 180f;
+    [SerializeField] int tailGap = 100;
+    [SerializeField] float tailFollowSpeed = 5f;
+
     ObjectPooler pooler;
+    Transform currentTailTarget;
 
     void Start()
     {
         pooler = ObjectPooler.Instance;
+        currentTailTarget = transform;
     }
 
-    void Update() {
-        MoveSnake();
+    void Update()
+    {
+        MoveHead();
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Treat")) {
-            GrowSnake();
+        if (collision.gameObject.CompareTag("Treat"))
+        {
+            GameObject tailObject = pooler.SpawnFromPool("Tail", transform.position, transform.rotation);
+            if (tailObject == null) return;
+
+            TailController tailController = tailObject.GetComponent<TailController>();
+            if (tailController == null) return;
+
+            tailController.Initialize(currentTailTarget, tailFollowSpeed, tailGap);
+            currentTailTarget = tailObject.transform;
         }
     }
 
-    void MoveSnake() 
+    void MoveHead()
     {
         transform.position += moveSpeed * Time.deltaTime * transform.forward;
 
         float steerDirection = Input.GetAxis("Horizontal");
         transform.Rotate(steerDirection * steerSpeed * Time.deltaTime * Vector3.up);
-    }
-
-    private void GrowSnake()
-    {
-        GameObject tail = pooler.SpawnFromPool("Tail", transform.position, transform.rotation);
-        if (tail != null)
-        {
-            tail.transform.SetParent(transform.parent, worldPositionStays: true);
-            TailController tailController = tail.GetComponent<TailController>();
-            if (tailController != null)            {
-                tailController.enabled = true;
-                tailController.TailParts.Add(tail);
-            }
-        }
     }
 }

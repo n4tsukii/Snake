@@ -579,6 +579,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 216e5356f1d70df44842708ae9ab5681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPooler
+  pools:
+  - tag: Tail
+    prefab: {fileID: 9096219786797374282, guid: 5a9eb3ac9ce71fe44924c61f7ba11b0f, type: 3}
+    size: 100
 --- !u!1 &1844559390 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4358082838810357560, guid: d04e847bdaf278745988f87645db2300, type: 3}

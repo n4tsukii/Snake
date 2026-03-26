@@ -19,20 +19,24 @@ public class ObjectPooler : MonoBehaviour
     }
     #endregion
     public List<Pool> pools;
+    private Dictionary<string, Pool> poolConfigs;
 
     public Dictionary<string, Queue<GameObject>> poolDictionary;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        poolConfigs = new Dictionary<string, Pool>();
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
         foreach (Pool pool in pools)
         {
+            poolConfigs[pool.tag] = pool;
             Queue<GameObject> objectPool = new Queue<GameObject>();
 
             for (int i = 0; i < pool.size; i++)
             {
                 GameObject obj = Instantiate(pool.prefab);
+                obj.transform.SetParent(transform, worldPositionStays: true);
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);
             }
@@ -45,12 +49,21 @@ public class ObjectPooler : MonoBehaviour
     {
         if (poolDictionary.ContainsKey(tag))
         {
-            GameObject obj = poolDictionary[tag].Dequeue();
+            Queue<GameObject> poolQueue = poolDictionary[tag];
+            GameObject obj = GetAvailableObject(tag, poolQueue);
+            if (obj == null) return null;
+
             obj.SetActive(true);
             obj.transform.position = position;
             obj.transform.rotation = rotation;
 
-            poolDictionary[tag].Enqueue(obj);
+            IPooledObject pooledObj = obj.GetComponent<IPooledObject>();
+
+            if (pooledObj != null) {
+                pooledObj.OnObjectSpawn();
+            }
+
+            poolQueue.Enqueue(obj);
 
             return obj;
         } else {
@@ -59,4 +72,29 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
+    GameObject GetAvailableObject(string tag, Queue<GameObject> poolQueue)
+    {
+        int poolCount = poolQueue.Count;
+
+        for (int i = 0; i < poolCount; i++)
+        {
+            GameObject candidate = poolQueue.Dequeue();
+            if (!candidate.activeInHierarchy)
+            {
+                return candidate;
+            }
+
+            poolQueue.Enqueue(candidate);
+        }
+
+        if (!poolConfigs.TryGetValue(tag, out Pool poolConfig))
+        {
+            return null;
+        }
+
+        GameObject newObject = Instantiate(poolConfig.prefab);
+        newObject.transform.SetParent(transform, worldPositionStays: true);
+        newObject.SetActive(false);
+        return newObject;
+    }
 }

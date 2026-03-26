@@ -280,6 +280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2393574141246261300}
   - component: {fileID: 5595997205481019383}
+  - component: {fileID: 5497433799460175045}
   m_Layer: 0
   m_Name: Duck Tail
   m_TagString: Tail
@@ -320,9 +321,23 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1.32, z: 1.9}
   m_Center: {x: 0, y: 0.39, z: 0.34}
+--- !u!114 &5497433799460175045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9096219786797374282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0783a4ad4f130e46aa5cc9445b70526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TailController
+  moveSpeed: 5
+  gap: 100

@@ -1,10 +1,7 @@
 using UnityEngine;
 
-public class IPooledObject
+public interface IPooledObject
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void OnObjectSpawn()
-    {
-        
-    }
+    void OnObjectSpawn();
 }
