@@ -520,7 +520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4257712927431980367, guid: 387e00dec51b63f45a0fc52ee6fb4c8f, type: 3}
       propertyPath: Gap
-      value: 125
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 5595997205481019383, guid: 387e00dec51b63f45a0fc52ee6fb4c8f, type: 3}
       propertyPath: m_Size.z
@@ -544,6 +544,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1753152652}
+  - component: {fileID: 1753152653}
   m_Layer: 0
   m_Name: ObjectPool
   m_TagString: Untagged
@@ -566,6 +567,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1753152653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753152651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 216e5356f1d70df44842708ae9ab5681, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPooler
 --- !u!1 &1844559390 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4358082838810357560, guid: d04e847bdaf278745988f87645db2300, type: 3}

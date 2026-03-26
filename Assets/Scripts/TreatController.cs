@@ -20,6 +20,8 @@ public class TreatController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Snake")) {
             TeleportToRandomLocation();
+        } else if (collision.gameObject.CompareTag("Tail")) {
+            TeleportToRandomLocation();
         }
     }
 
