@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 public class TailController : MonoBehaviour, IPooledObject
 {
-    [SerializeField] float moveSpeed = 5f;
-    [SerializeField] int gap = 100;
+    float moveSpeed;
+    int gap;
 
     private readonly List<Vector3> positionHistory = new List<Vector3>();
     private Transform followTarget;
