@@ -282,6 +282,7 @@ GameObject:
   - component: {fileID: 5595997205481019383}
   - component: {fileID: 2883503192430776012}
   - component: {fileID: 4257712927431980367}
+  - component: {fileID: -33743384236770574}
   m_Layer: 0
   m_Name: Duck
   m_TagString: Snake
@@ -369,5 +370,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SnakeController
   moveSpeed: 5
   steerSpeed: 180
-  Tail: {fileID: 9096219786797374282, guid: 5a9eb3ac9ce71fe44924c61f7ba11b0f, type: 3}
-  Gap: 50
+  tailGap: 100
+  tailFollowSpeed: 5
+--- !u!114 &-33743384236770574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9096219786797374282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f37d29260e33ed498327eb858eb2fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AutoJump

@@ -522,6 +522,14 @@ PrefabInstance:
       propertyPath: Gap
       value: 110
       objectReference: {fileID: 0}
+    - target: {fileID: 4257712927431980367, guid: 387e00dec51b63f45a0fc52ee6fb4c8f, type: 3}
+      propertyPath: tailGap
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257712927431980367, guid: 387e00dec51b63f45a0fc52ee6fb4c8f, type: 3}
+      propertyPath: tailFollowSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5595997205481019383, guid: 387e00dec51b63f45a0fc52ee6fb4c8f, type: 3}
       propertyPath: m_Size.z
       value: 2.44
