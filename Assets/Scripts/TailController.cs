@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public class TailController : MonoBehaviour, IPooledObject
 {
@@ -31,7 +32,7 @@ public class TailController : MonoBehaviour, IPooledObject
             }
         }
 
-        isFollowing = followTarget != null;
+        isFollowing = true;
     }
 
     void Update()
@@ -55,12 +56,17 @@ public class TailController : MonoBehaviour, IPooledObject
         if (historyIndex < 0) return;
 
         Vector3 targetPosition = positionHistory[historyIndex];
-        transform.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed * Time.deltaTime * (isFollowing ? 1 : 0));
 
         Vector3 lookDirection = followTarget.position - transform.position;
         if (lookDirection.sqrMagnitude > 0.0001f)
         {
             transform.rotation = Quaternion.LookRotation(lookDirection);
         }
+    }
+
+    public void StopTail()
+    {
+        isFollowing = false;
     }
 }

@@ -8,8 +8,8 @@ public class SnakeController : MonoBehaviour
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float steerSpeed = 180f;
     [SerializeField] int tailGap = 100;
-    [SerializeField, Min(0f)] float tailDisappearInterval = 2f;
     [SerializeField] ParticleSystem deadParticle;
+    float despawnDelay = 0.5f;
 
     List<GameObject> tailSegments = new List<GameObject>();
     Renderer[] cachedHeadRenderers;
@@ -51,8 +51,7 @@ public class SnakeController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Tail"))
         {
-            Dead();
-            
+            StartCoroutine(Dead());
         }
     }
 
@@ -64,20 +63,24 @@ public class SnakeController : MonoBehaviour
         transform.Rotate(steerDirection * steerSpeed * Time.deltaTime * Vector3.up * (isDead ? 0 : 1f));
     }
 
-
-    void Dead()
-    {
-        if (isDead) return;
-
+    void StopSnake() {
         isDead = true;
-        StartCoroutine(HandleDeathSequence());
+        foreach (GameObject tail in tailSegments)
+        {
+            TailController tailController = tail.GetComponent<TailController>();
+            if (tailController != null)
+            {
+                tailController.StopTail();
+            }
+        }
     }
 
-    IEnumerator HandleDeathSequence()
+    IEnumerator Dead()
     {
+        StopSnake();
         SpawnParticle(transform.gameObject);
         HideHead();
-        yield return CollapseTailRoutine();
+        yield return CollapseTailRoutine(despawnDelay);
         Invoke(nameof(ReloadScene), 1f);
     }
 
@@ -94,12 +97,14 @@ public class SnakeController : MonoBehaviour
     void SpawnParticle(GameObject pos)
     {
         deadParticleInstance = Instantiate(deadParticle, pos.transform.position, Quaternion.identity);
+        Destroy(deadParticleInstance, deadParticleInstance.main.duration);
     }
 
-    IEnumerator CollapseTailRoutine()
+    IEnumerator CollapseTailRoutine(float despawnDelay)
     {
         if (tailSegments.Count == 0)
         {
+            tailSegments.Clear();
             currentTailTarget = transform;
             yield break;
         }
@@ -110,22 +115,14 @@ public class SnakeController : MonoBehaviour
         {
             int randomIndex = Random.Range(0, remainingTails.Count);
             GameObject tail = remainingTails[randomIndex];
+            if (tail != null)
+                continue;
             SpawnParticle(tail);
             remainingTails.RemoveAt(randomIndex);
             pooler.ReturnToPool("Tail", tail);
 
-            if (tailDisappearInterval > 0f)
-            {
-                yield return new WaitForSeconds(tailDisappearInterval);
-            }
-            else
-            {
-                yield return null;
-            }
+            yield return new WaitForSeconds(despawnDelay);
         }
-
-        tailSegments.Clear();
-        currentTailTarget = transform;
     }
 
     void ReloadScene() {
