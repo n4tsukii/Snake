@@ -1,0 +1,10 @@
+{
+  "name": "com.deepwave.icr",
+  "version": "1.0.1",
+  "displayName": "Infinite Corrugated Roof",
+  "description": "A procedural tool to generate infinite, fully customizable corrugated roofs in Unity.",
+  "unity": "2021.3",
+  "author": {
+    "name": "Thang Le"
+  }
+}

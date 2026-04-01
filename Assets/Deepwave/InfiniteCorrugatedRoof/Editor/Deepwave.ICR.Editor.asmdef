@@ -1,0 +1,30 @@
+{
+    "name": "Deepwave.ICR.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0f9e8f73c69964f1e8176f9a0b86f9b2",
+        "GUID:80bde6318d7134b4a82240270d9b2d56"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.splines",
+            "expression": "1.0.0",
+            "define": "ICR_SPLINES_SUPPORTED"
+        },
+        {
+            "name": "com.unity.formats.fbx",
+            "expression": "1.0.0",
+            "define": "ICR_FBX_EXPORTER_SUPPORTED"
+        }
+    ],
+    "noEngineReferences": false
+}

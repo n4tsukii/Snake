@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7e32616b6f7ffd9478dd4660d63e999c
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 357650
+  packageName: Infinite Corrugated Roof
+  packageVersion: 1.0.1
+  assetPath: Assets/Deepwave/InfiniteCorrugatedRoof/Editor/Deepwave.ICR.Editor.asmdef
+  uploadId: 888172

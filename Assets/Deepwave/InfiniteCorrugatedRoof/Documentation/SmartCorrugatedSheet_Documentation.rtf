@@ -1,0 +1,69 @@
+{\rtf1\ansi\deff0
+{\fonttbl{\f0 Calibri;}}
+\fs24
+\b Smart Corrugated Sheet - Offline Documentation\b0\par
+\par
+\b Table of Contents\b0\par
+1. Overview\par
+2. Package Contents\par
+3. Requirements\par
+4. Setup Guide (Step-by-Step)\par
+5. Demo Scene Usage\par
+6. Runtime Usage\par
+7. Script Reference\par
+8. Troubleshooting\par
+9. Support\par
+\par
+\b 1. Overview\b0\par
+Smart Corrugated Sheet is a Unity component that generates a corrugated metal sheet mesh with customizable dimensions, profile, and LOD baking options.\par
+\par
+\b 2. Package Contents\b0\par
+2.1 Prefabs: Corrugated sheet prefabs for quick placement.\par
+2.2 Scripts: Runtime and editor scripts to generate and bake geometry.\par
+2.3 Materials/Textures: Sample materials for demonstration (if included).\par
+\par
+\b 3. Requirements\b0\par
+3.1 Unity 2020.3 LTS or newer.\par
+3.2 Universal Render Pipeline (URP) recommended for the included demo prefab.\par
+\par
+\b 4. Setup Guide (Step-by-Step)\b0\par
+4.1 Import the package into your Unity project.\par
+4.2 In the Project window, navigate to:\par
+    Assets/Deepwave/SmartCorrugatedSheet/Assets/Prefabs\par
+4.3 Drag the CorrugatedSheet_URP prefab into your scene.\par
+4.4 Select the prefab instance and inspect the SmartCorrugatedSheet component.\par
+4.5 Adjust parameters (width, length, profile, thickness, material).\par
+4.6 Press Play to confirm the mesh updates correctly in play mode.\par
+4.7 Optional: Use the Bake panel in the inspector to bake a static mesh asset.\par
+\par
+\b 5. Demo Scene Usage\b0\par
+5.1 Open the sample scene (if provided) from the package.\par
+5.2 Select the SmartCorrugatedSheet object and tweak settings to preview variations.\par
+\par
+\b 6. Runtime Usage\b0\par
+6.1 You can adjust settings at runtime through the SmartCorrugatedSheet component.\par
+6.2 If you need to generate meshes procedurally, instantiate a GameObject, add the component, and set its properties before calling any bake method.\par
+\par
+\b 7. Script Reference\b0\par
+7.1 SmartCorrugatedSheet (MonoBehaviour)\par
+    Purpose: Main component that generates the sheet mesh, handles parameters, and triggers rebuilds.\par
+    Key properties (non-exhaustive):\par
+    - Width, Length, Thickness: Overall sheet size.\par
+    - Profile settings: Corrugation depth and spacing.\par
+    - Material: The material assigned to the generated mesh.\par
+    Key actions: Rebuilds the mesh when values change; can be baked into a static mesh asset.\par
+\par
+7.2 SmartCorrugatedSheetEditor (Editor)\par
+    Purpose: Custom inspector that provides UI for editing and baking.\par
+\par
+7.3 SmartSheetFbxExporter (Editor)\par
+    Purpose: Exports baked mesh data to an FBX file.\par
+\par
+\b 8. Troubleshooting\b0\par
+8.1 The mesh does not update: Ensure the component is enabled and the GameObject is active.\par
+8.2 The sheet looks flat: Increase corrugation depth in the profile settings.\par
+8.3 Bake output missing: Verify the output folder exists and you have write permissions.\par
+\par
+\b 9. Support\b0\par
+For support, contact the publisher with your Unity version and a brief description of the issue.\par
+}

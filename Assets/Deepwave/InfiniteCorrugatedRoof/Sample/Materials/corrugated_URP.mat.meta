@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: dbee1fd76ca357b4a8e852e44655c30e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 357650
+  packageName: Infinite Corrugated Roof
+  packageVersion: 1.0.1
+  assetPath: Assets/Deepwave/InfiniteCorrugatedRoof/Sample/Materials/corrugated_URP.mat
+  uploadId: 888172
