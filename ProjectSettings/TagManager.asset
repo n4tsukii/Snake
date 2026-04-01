@@ -9,6 +9,7 @@ TagManager:
   - Snake
   - Tail
   - Floor
+  - Wall
   layers:
   - Default
   - TransparentFX
