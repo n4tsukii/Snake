@@ -10,6 +10,7 @@ public class SnakeController : MonoBehaviour
     [SerializeField] int tailGap = 100;
     [SerializeField] ParticleSystem deadParticle;
     float despawnDelay = 0.5f;
+    Vector3 inputDirection = new Vector3(0, 0, 1);
 
     List<GameObject> tailSegments = new List<GameObject>();
     Renderer[] cachedHeadRenderers;
@@ -23,11 +24,12 @@ public class SnakeController : MonoBehaviour
 
     void Start()
     {
-        cachedHeadRenderers = GetComponentsInChildren<Renderer>(true);
-        cachedHeadCollider = GetComponent<Collider>();
+        // cachedHeadRenderers = GetComponentsInChildren<Renderer>(true);
+        // cachedHeadCollider = GetComponent<Collider>();
+        // pooler = ObjectPooler.Instance;
+        // currentTailTarget = transform;
+
         isDead = false;
-        pooler = ObjectPooler.Instance;
-        currentTailTarget = transform;
     }
 
     void Update()
@@ -57,7 +59,19 @@ public class SnakeController : MonoBehaviour
 
     void MoveHead()
     {
-        transform.position += moveSpeed * Time.deltaTime * transform.forward * (isDead ? 0 : 1);
+        if (Input.GetKeyDown(KeyCode.W)) {
+            inputDirection = new Vector3(0, 0, 1);
+        } else if (Input.GetKeyDown(KeyCode.S)) {
+            inputDirection = new Vector3(0, 0, -1);
+        } else if (Input.GetKeyDown(KeyCode.A)) {
+            inputDirection = new Vector3(-1, 0, 0);
+        } else if (Input.GetKeyDown(KeyCode.D)) {
+            inputDirection = new Vector3(1, 0, 0);
+        }
+        this.transform.position =  new Vector3(
+            this.transform.position.x + inputDirection.x * (isDead ? 0 : 1f), 
+            this.transform.position.y + inputDirection.y * (isDead ? 0 : 1f), 
+            this.transform.position.z + inputDirection.z * (isDead ? 0 : 1f));
 
         float steerDirection = Input.GetAxis("Horizontal");
         transform.Rotate(steerDirection * steerSpeed * Time.deltaTime * Vector3.up * (isDead ? 0 : 1f));
