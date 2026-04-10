@@ -1,0 +1,24 @@
+{
+    "name": "Deepwave.ICR.Runtime",
+    "rootNamespace": "Deepwave.ICR",
+    "references": [
+        "GUID:21d1eb854b91ade49bc69a263d12bee2",
+        "GUID:d8b63aba1907145bea998dd612889d6b",
+        "GUID:de1d38ee5a1dcc540b09fc55af1f383a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.splines",
+            "expression": "1.0.0",
+            "define": "ICR_SPLINES_SUPPORTED"
+        }
+    ],
+    "noEngineReferences": false
+}
